@@ -11,7 +11,6 @@ function extractBandcampPurchases() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
 
-  // Add header if not present
   const headers = [
     "Date", "Track", "Artist", "Currency",
     "Subtotal", "VAT", "Total",
@@ -19,17 +18,17 @@ function extractBandcampPurchases() {
     "Transaction ID"
   ];
   if (sheet.getLastRow() === 0 || sheet.getRange("A1").getValue() !== headers[0]) {
-    sheet.clear(); // Avoid duplicate headers
+    sheet.clear();
     sheet.appendRow(headers);
   }
 
-  const existingTxIds = sheet.getLastRow() > 1
+  let existingTxIds = sheet.getLastRow() > 1
     ? sheet.getRange("K2:K" + sheet.getLastRow()).getValues()
         .flat()
-        .map(v => String(v).trim())  // Force to string & trim
-        .filter(v => v)              // Remove falsy values
+        .map(v => String(v).trim())
+        .filter(v => v)
     : [];
-  
+
   const rowsToAppend = [];
 
   threads.forEach(thread => {
@@ -57,7 +56,7 @@ function extractBandcampPurchases() {
         }
       }
 
-      const txId = extractTransactionID(plain);
+      const txId = extractTransactionID(plain, html);
       if (!txId || existingTxIds.includes(txId)) {
         Logger.log(`Skipping ${txId ? 'duplicate' : 'invalid'} transaction.`);
         return;
@@ -71,11 +70,14 @@ function extractBandcampPurchases() {
         convertToEUR(total, currency, dateStr),
         txId
       ]);
+
+      // Prevent duplicate entries in the same run
+      existingTxIds.push(txId);
     });
   });
 
   if (rowsToAppend.length) {
-    sheet.getRange(sheet.getLastRow() + 1, 1, rowsToAppend.length, rowsToAppend[0].length).setValues(rowsToAppend);
+    sheet.getRange(sheet.getLastRow() + 1, 1, rowsToAppend.length, headers.length).setValues(rowsToAppend);
     Logger.log(`Appended ${rowsToAppend.length} new purchase records.`);
   } else {
     Logger.log("No new purchase records to append.");
@@ -115,13 +117,14 @@ function extractPurchaseDate(htmlBody, plainBody, msg) {
 }
 
 /**
- * Extracts a transaction ID from plain text.
+ * Extracts a transaction ID from plain or HTML content.
  */
-function extractTransactionID(text) {
+function extractTransactionID(plainText, htmlText = "") {
   return (
-    (text.match(/Payment\s+(\d+)/) || [])[1] ||
-    (text.match(/Bandcamp transaction ID:\s*(\d+)/i) || [])[1] ||
-    (text.match(/payment_id=(\d+)/) || [])[1] ||
+    (plainText.match(/Payment\s+(\d+)/) || [])[1] ||
+    (plainText.match(/Bandcamp transaction ID:\s*(\d+)/i) || [])[1] ||
+    (plainText.match(/payment_id=(\d+)/) || [])[1] ||
+    (htmlText.match(/payment_id=(\d+)/) || [])[1] ||
     ""
   ).toString().trim();
 }
