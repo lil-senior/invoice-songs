@@ -120,4 +120,4 @@ PRs welcome if you want to add more platforms (Juno, Boomkat, Traxsource, etc.) 
 
 ## 📎 License
 
-MIT License. Do whatever you want with it — just don't resell it as a SaaS please.
+GNU GPLv3. Do whatever you want with it — just don't resell it as a SaaS please.
