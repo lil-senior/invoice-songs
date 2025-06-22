@@ -40,7 +40,7 @@ function extractApplePurchases() {
       const orderId = extractAppleOrderId(html);
 
       if (!orderId || existingOrderIds.includes(orderId)) {
-        // Logger.log(`Apple: Skipping ${orderId ? 'duplicate' : 'missing'} Order ID.`);
+        Logger.log(`Apple: Skipping ${orderId ? 'duplicate' : 'missing'} Order ID.`);
         return;
       }
 
