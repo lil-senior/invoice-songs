@@ -6,4 +6,5 @@ function run_all_scripts() {
   extractBandcampPurchases();
   extractBeatportPurchases();
   extractApplePurchases();
+  extractJunoDownloadPurchases();
 }
