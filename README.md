@@ -1,8 +1,8 @@
-# 🎧 Automated Music Purchase Extractor (Bandcamp / Beatport / Apple)
+# 🎧 Automated Music Purchase Extractor (Bandcamp / Beatport / Apple / Juno Download)
 
 As I couldn't be asked to do this myself, I used Google Apps Script together with Google Sheets to automate it.
 
-Shoutout to Gemini and ChatGPT for writing the code.
+Shoutout to Gemini, ChatGPT and Claude for writing the code.
 
 What this setup does:
 - 📥 Reads the **HTML content** of incoming **Gmail** receipts
@@ -11,7 +11,7 @@ What this setup does:
 - 📊 Appends the results into a neat tab in Google Sheets
 - 🤖 With triggering in App Script, it looks for new invoices in my mailbox every Monday 10 AM 
 
-No more manual copy-pasting from your Bandcamp, Beatport, or Apple receipts. 🙌
+No more manual copy-pasting from your Bandcamp, Beatport, Apple or Juno Download receipts. 🙌
 
 ---
 
@@ -31,6 +31,7 @@ If you're:
 - ✅ Bandcamp
 - ✅ Beatport
 - ✅ Apple (iTunes, Music purchases — tested on Dutch invoices)
+- ✅ Juno Download
 
 ---
 
@@ -52,6 +53,7 @@ If you're:
    - `bandcamp.gs`
    - `beatport.gs`
    - `apple.gs`
+   - `juno_downloads.gs`
    - `utils.gs`
    - `call_all.gs`
 
@@ -67,7 +69,7 @@ If you're:
 
 ## 📦 What the Sheet Includes
 
-Each tab (Bandcamp / Beatport / Apple) will include:
+Each tab (Bandcamp / Beatport / Apple / Juno Download) will include:
 
 | Date       | Track | Artist | Currency | Subtotal | VAT | Total | Subtotal EUR | VAT EUR | Total EUR | Transaction ID |
 |------------|-------|--------|----------|----------|-----|-------|---------------|----------|-----------|----------------|
