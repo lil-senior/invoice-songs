@@ -7,4 +7,5 @@ function run_all_scripts() {
   extractBeatportPurchases();
   extractApplePurchases();
   extractJunoDownloadPurchases();
+  extractQobuzPurchases();
 }
