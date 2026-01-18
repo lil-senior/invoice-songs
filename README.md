@@ -1,4 +1,4 @@
-# 🎧 Automated Music Purchase Extractor (Bandcamp / Beatport / Apple / Juno Download)
+# 🎧 Automated Music Purchase Extractor (Bandcamp / Beatport / Apple / Juno / Qobuz Download)
 
 As I couldn't be asked to do this myself, I used Google Apps Script together with Google Sheets to automate it.
 
@@ -11,7 +11,7 @@ What this setup does:
 - 📊 Appends the results into a neat tab in Google Sheets
 - 🤖 With triggering in App Script, it looks for new invoices in my mailbox every Monday 10 AM 
 
-No more manual copy-pasting from your Bandcamp, Beatport, Apple or Juno Download receipts. 🙌
+No more manual copy-pasting from your Bandcamp, Beatport, Apple, Qobuz or Juno Download receipts. 🙌
 
 ---
 
@@ -32,6 +32,7 @@ If you're:
 - ✅ Beatport
 - ✅ Apple (iTunes, Music purchases — tested on Dutch invoices)
 - ✅ Juno Download
+- ✅ Qobuz Download
 
 ---
 
@@ -56,6 +57,7 @@ If you're:
    - `juno_downloads.gs`
    - `utils.gs`
    - `call_all.gs`
+   - `qobuz.gs`
 
 4. It will through a 'security warning', just click yes and you'll be good to go!
 
@@ -116,7 +118,7 @@ Yes! Modify the `convertToEUR()` function in `utils.gs` to use a different targe
 > This was a lazy automation attempt turned into something mildly useful.  
 > Feel free to fork, tweak, and build on it.
 
-PRs welcome if you want to add more platforms (Juno, Boomkat, Traxsource, etc.) or analytics features.
+PRs welcome if you want to add more platforms (Boomkat, Traxsource, etc.) or analytics features.
 
 ---
 
